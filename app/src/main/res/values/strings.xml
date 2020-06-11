@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">JNews2</string>
+
+    <string name="cancel">취소</string>
+    <string name="download">다운로드</string>
+    <string name="download_failed">다운로드 실패함</string>
+    <string name="downloading">다운로드 중…</string>
+    <string name="japanese">日本語</string>
+    <string name="news">뉴스</string>
+    <string name="no_directory">디렉토리 없음</string>
+    <string name="no_internet_connection">인터넷 연결 없음</string>
+    <string name="permission_denied">권한 거부됨</string>
+    <string name="refresh">새로 고침</string>
+    <string name="response_failed">응답 실패함</string>
+    <string name="status">상태</string>
+    <string name="title">제목</string>
+</resources>
