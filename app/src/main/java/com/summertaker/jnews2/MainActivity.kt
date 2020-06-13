@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
@@ -145,24 +146,24 @@ class MainActivity : AppCompatActivity() { //SwipeActivity() {
         mVideos.clear()
         mVideos.addAll(videos)
 
-        val videoSource = ProgressiveMediaSource.Factory(dataSourceFactory)
-            .createMediaSource(mVideos[0].contentUri)
+        //val videoSource = ProgressiveMediaSource.Factory(dataSourceFactory)
+        //    .createMediaSource(mVideos[0].contentUri)
 
         // 플레이 리스트 만들기
-        /*val concatenatedSource = ConcatenatingMediaSource()
+        val concatenatedSource = ConcatenatingMediaSource()
         for (video in mVideos) {
             val videoSource = ProgressiveMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(video.contentUri)
             concatenatedSource.addMediaSource(videoSource)
-        }*/
+        }
 
         exoPlayer = SimpleExoPlayer.Builder(this).build()
         with(exoPlayer) {
             playWhenReady = isPlayerPlaying
-            repeatMode = Player.REPEAT_MODE_ALL
+            repeatMode = Player.REPEAT_MODE_ONE
             //seekTo(currentWindow, playbackPosition)
-            prepare(videoSource, false, false)
-            //prepare(concatenatedSource, false, false) // 플레이 리스트 설정하기
+            //prepare(videoSource, false, false)
+            prepare(concatenatedSource, false, false) // 플레이 리스트 설정하기
         }
         exoPlayer.addListener(object : Player.EventListener {
             override fun onPlayerStateChanged(
@@ -176,10 +177,10 @@ class MainActivity : AppCompatActivity() { //SwipeActivity() {
                     Player.STATE_BUFFERING -> {
                     }
                     Player.STATE_READY -> {
-                        //val index = exoPlayer.currentWindowIndex
+                        val index = exoPlayer.currentWindowIndex
                         //Log.e(">>", "currentWindowIndex: $index")
-                        //val video = mVideos[index]
-                        val video = mVideos[0]
+                        val video = mVideos[index]
+                        //val video = mVideos[0]
                         val html =
                             video.style + video.furigana + "<hr>" + video.korean + "<hr>" + video.japanese
                         webView.loadDataWithBaseURL("", html, "text/html", "UTF-8", "")
